@@ -10,6 +10,8 @@ import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { SearchScreen } from "./src/screens/SearchScreen";
+import { RestaurantScreen } from "./src/screens/RestaurantScreen";
+import { FoodDetailScreen } from "./src/screens/FoodDetailScreen";
 
 const switchNavigator = createSwitchNavigator({
   landingStack: {
@@ -32,6 +34,8 @@ const switchNavigator = createSwitchNavigator({
         {
           HomePage: HomeScreen,
           SearchPage: SearchScreen,
+          RestaurantPage: RestaurantScreen,
+          FoodDetailPage: FoodDetailScreen,
         },
         {
           defaultNavigationOptions: {

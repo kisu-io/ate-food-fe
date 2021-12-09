@@ -4,7 +4,12 @@ import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { useNavigation } from "../utils";
-import { ButtonWithIcon, SearchBar, CategoryCard } from "../components";
+import {
+  ButtonWithIcon,
+  SearchBar,
+  CategoryCard,
+  RestaurantCard,
+} from "../components";
 import {
   onAvailability,
   UserState,
@@ -32,6 +37,14 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
   useEffect(() => {
     props.onAvailability(location.postalCode);
   }, []);
+
+  const onTapRestaurant = (item: Restaurant) => {
+    navigate("RestaurantPage", { restaurant: item });
+  };
+
+  const onTapFood = (item: FoodModel) => {
+    navigate("FoodDetailPage", { food: item });
+  };
 
   return (
     <View style={styles.container}>
@@ -90,6 +103,48 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
               />
             )}
             keyExtractor={(item) => `${item.id}`}
+          />
+          <View>
+            <Text
+              style={{
+                fontSize: 25,
+                fontWeight: "600",
+                color: "#f15b5d",
+                marginLeft: 20,
+              }}
+            >
+              Top Restaurants
+            </Text>
+          </View>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={restaurants}
+            renderItem={({ item }) => (
+              <RestaurantCard item={item} onTap={onTapRestaurant} />
+            )}
+            keyExtractor={(item) => `${item._id}`}
+          />
+          <View>
+            <Text
+              style={{
+                fontSize: 25,
+                fontWeight: "600",
+                color: "#f15b5d",
+                marginLeft: 20,
+              }}
+            >
+              Quick Bites
+            </Text>
+          </View>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={foods}
+            renderItem={({ item }) => (
+              <RestaurantCard item={item} onTap={onTapFood} />
+            )}
+            keyExtractor={(item) => `${item._id}`}
           />
         </ScrollView>
       </View>
