@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { useNavigation } from "../utils";
-import { ButtonWithIcon, SearchBar } from "../components";
+import { ButtonWithIcon, SearchBar, CategoryCard } from "../components";
 import {
   onAvailability,
   UserState,
@@ -48,8 +48,8 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
             flexDirection: "row",
           }}
         >
-          <Text>{`${location.name},${location.street},${location.city}`}</Text>
-          <Text>Edit Button</Text>
+          <Text>{`${location.name},${location.street},${location.city}`} </Text>
+          <Text> Edit</Text>
         </View>
         <View
           style={{
@@ -75,7 +75,24 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
           />
         </View>
       </View>
-      <View style={styles.body}></View>
+      <View style={styles.body}>
+        <ScrollView>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={categories}
+            renderItem={({ item }) => (
+              <CategoryCard
+                item={item}
+                onTap={() => {
+                  alert("Category Tapped");
+                }}
+              />
+            )}
+            keyExtractor={(item) => `${item.id}`}
+          />
+        </ScrollView>
+      </View>
     </View>
   );
 };
