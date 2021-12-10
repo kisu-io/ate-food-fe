@@ -13,6 +13,7 @@ import {
 import {
   onAvailability,
   UserState,
+  onSearchFoods,
   ApplicationState,
   ShoppingState,
   Restaurant,
@@ -36,6 +37,9 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
 
   useEffect(() => {
     props.onAvailability(location.postalCode);
+    setTimeout(() => {
+      props.onSearchFoods(location.postalCode);
+    }, 1000);
   }, []);
 
   const onTapRestaurant = (item: Restaurant) => {
@@ -175,6 +179,8 @@ const mapToStateProps = (state: ApplicationState) => ({
   shoppingReducer: state.shoppingReducer,
 });
 
-const HomeScreen = connect(mapToStateProps, { onAvailability })(_HomeScreen);
+const HomeScreen = connect(mapToStateProps, { onAvailability, onSearchFoods })(
+  _HomeScreen
+);
 
 export { HomeScreen };
