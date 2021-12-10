@@ -13,9 +13,10 @@ export interface FoodModel {
   name: string;
   description: string;
   category: string;
-  price: Number;
+  price: number;
   readyTime: Number;
   images: [string];
+  unit: number;
 }
 
 // Restaurant Models

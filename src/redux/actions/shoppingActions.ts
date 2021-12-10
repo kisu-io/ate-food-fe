@@ -59,8 +59,6 @@ export const onSearchFoods = (postCode: string) => {
         `${BASE_URL}food/search/${postCode}`
       );
 
-      console.log(response);
-
       if (!response) {
         dispatch({
           type: "ON_SHOPPING_ERROR",

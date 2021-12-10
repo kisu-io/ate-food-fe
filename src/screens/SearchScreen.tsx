@@ -35,12 +35,11 @@ const _SearchScreen: React.FC<SearchScreenProps> = (props) => {
 
   const { availableFoods } = props.shoppingReducer;
 
+  const { Cart } = props.userReducer;
+
   const onTapFood = (item: FoodModel) => {
     navigate("FoodDetailPage", { food: item });
   };
-
-  const { Cart } = props.userReducer;
-
   return (
     <View style={styles.container}>
       <View style={styles.navigation}>
@@ -57,8 +56,8 @@ const _SearchScreen: React.FC<SearchScreenProps> = (props) => {
           <ButtonWithIcon
             icon={require("../images/back_arrow.png")}
             onTap={() => navigate("HomePage")}
-            width={40}
-            height={50}
+            width={20}
+            height={20}
           />
           <SearchBar
             onTextChange={setKeyword}

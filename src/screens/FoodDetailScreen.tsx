@@ -37,11 +37,10 @@ const _FoodDetailScreen: React.FC<FoodDetailProps> = (props) => {
         <ButtonWithIcon
           icon={require("../images/back_arrow.png")}
           onTap={() => goBack()}
-          width={42}
-          height={42}
+          width={20}
+          height={20}
         />
-        <Text style={{ fontSize: 22, fontWeight: "600", marginLeft: 60 }}>
-          {" "}
+        <Text style={{ fontSize: 22, fontWeight: "600", marginLeft: 10 }}>
           {food.name}
         </Text>
       </View>
@@ -58,17 +57,15 @@ const _FoodDetailScreen: React.FC<FoodDetailProps> = (props) => {
             style={{ height: 120, backgroundColor: "rgba(0,0,0,0.6)", padding: 10 }}
           >
             <Text style={{ color: "#FFF", fontSize: 30, fontWeight: "700" }}>
-              {" "}
               {food.name}
             </Text>
             <Text style={{ color: "#FFF", fontSize: 25, fontWeight: "500" }}>
-              {" "}
-              {food.category}{" "}
+              {food.category}
             </Text>
           </View>
         </ImageBackground>
-        <View style={{ display: "flex", height: 300, padding: 20 }}>
-          <Text> Food Will be ready within {food.readyTime} Minite(s)</Text>
+        <View style={{ display: "flex", height: 250, padding: 20 }}>
+          <Text> Food Will be ready within {food.readyTime} Minute(s)</Text>
           <Text>{food.description} </Text>
         </View>
         <View style={{ height: 120 }}>
@@ -101,7 +98,6 @@ const styles = StyleSheet.create({
   },
   footer: { flex: 1, backgroundColor: "cyan" },
 });
-
 const mapToStateProps = (state: ApplicationState) => ({
   userReducer: state.userReducer,
 });

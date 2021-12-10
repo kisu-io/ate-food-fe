@@ -10,24 +10,34 @@ import {
   Dimensions,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { ButtonWithIcon } from "../components";
+import { ButtonWithIcon, FoodCard } from "../components";
 
 import { connect } from "react-redux";
 
-import { Restaurant, FoodModel, ApplicationState, UserState } from "../redux";
+import {
+  Restaurant,
+  FoodModel,
+  onUpdateCart,
+  ApplicationState,
+  UserState,
+} from "../redux";
 
 import { useNavigation, checkExistence } from "../utils";
 
 interface RestaurantProps {
+  userReducer: UserState;
   navigation: { getParam: Function; goBack: Function };
+  onUpdateCart: Function;
 }
 
-const RestaurantScreen: React.FC<RestaurantProps> = (props) => {
+const _RestaurantScreen: React.FC<RestaurantProps> = (props) => {
   const { getParam, goBack } = props.navigation;
-  const { navigate } = useNavigation();
-  const { Cart } = props.userReducer;
 
   const restaurant = getParam("restaurant") as Restaurant;
+
+  const { navigate } = useNavigation();
+
+  const { Cart } = props.userReducer;
 
   const onTapFood = (item: FoodModel) => {
     navigate("FoodDetailPage", { food: item });
@@ -104,5 +114,9 @@ const styles = StyleSheet.create({
 const mapToStateProps = (state: ApplicationState) => ({
   userReducer: state.userReducer,
 });
+
+const RestaurantScreen = connect(mapToStateProps, { onUpdateCart })(
+  _RestaurantScreen
+);
 
 export { RestaurantScreen };
