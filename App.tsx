@@ -13,6 +13,7 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import { SearchScreen } from "./src/screens/SearchScreen";
 import { RestaurantScreen } from "./src/screens/RestaurantScreen";
 import { FoodDetailScreen } from "./src/screens/FoodDetailScreen";
+import { LoginScreen } from "./src/screens/LoginScreen";
 import { CartScreen } from "./src/screens/CartScreen";
 
 const switchNavigator = createSwitchNavigator({
@@ -78,6 +79,7 @@ const switchNavigator = createSwitchNavigator({
       screen: createStackNavigator(
         {
           CartPage: CartScreen,
+          LoginPage: LoginScreen,
         },
         {
           defaultNavigationOptions: {
@@ -98,7 +100,7 @@ const switchNavigator = createSwitchNavigator({
     // Home tab Icon
     Account: {
       screen: createStackNavigator({
-        AccountPage: HomeScreen,
+        LoginPage: LoginScreen,
         HomePage: HomeScreen,
       }),
       navigationOptions: {
