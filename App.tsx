@@ -15,13 +15,17 @@ import { RestaurantScreen } from "./src/screens/RestaurantScreen";
 import { FoodDetailScreen } from "./src/screens/FoodDetailScreen";
 import { LoginScreen } from "./src/screens/LoginScreen";
 import { CartScreen } from "./src/screens/CartScreen";
-
+import { OrderScreen } from "./src/screens/OrderScreen";
+import { OrderDetailScreen } from "./src/screens/OrderDetailScreen";
+import { AccountScreen } from "./src/screens/AccountScreen";
+import { OfferScreen } from "./src/screens/OfferScreen";
+import { LocationScreen } from "./src/screens/LocationScreen";
 const switchNavigator = createSwitchNavigator({
   landingStack: {
     screen: createStackNavigator(
       {
         Landing: LandingScreen,
-        // search address screen
+        LocationPage: LocationScreen,
       },
       {
         defaultNavigationOptions: {
@@ -60,9 +64,16 @@ const switchNavigator = createSwitchNavigator({
 
     // Home tab Icon
     Offer: {
-      screen: createStackNavigator({
-        HomePage: HomeScreen,
-      }),
+      screen: createStackNavigator(
+        {
+          OfferPage: OfferScreen,
+        },
+        {
+          defaultNavigationOptions: {
+            headerShown: false,
+          },
+        }
+      ),
       navigationOptions: {
         tabBarIcon: ({ focused, tintColor }) => {
           let icon =
@@ -80,6 +91,9 @@ const switchNavigator = createSwitchNavigator({
         {
           CartPage: CartScreen,
           LoginPage: LoginScreen,
+          OrderPage: OrderScreen,
+          OrderDetailPage: OrderDetailScreen,
+          CartOfferPage: OfferScreen,
         },
         {
           defaultNavigationOptions: {
@@ -99,10 +113,19 @@ const switchNavigator = createSwitchNavigator({
     },
     // Home tab Icon
     Account: {
-      screen: createStackNavigator({
-        LoginPage: LoginScreen,
-        HomePage: HomeScreen,
-      }),
+      screen: createStackNavigator(
+        {
+          AccountPage: AccountScreen,
+          LoginPage: LoginScreen,
+          AccountOrderPage: OrderScreen,
+          OrderDetailPage: OrderDetailScreen,
+        },
+        {
+          defaultNavigationOptions: {
+            headerShown: false,
+          },
+        }
+      ),
       navigationOptions: {
         tabBarIcon: ({ focused, tintColor }) => {
           let icon =

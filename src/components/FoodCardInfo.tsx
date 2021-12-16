@@ -14,6 +14,7 @@ import { ButtonAddRemove } from "./ButtonAddRemove";
 interface FoodCardInfoProps {
   item: FoodModel;
   onUpdateCart: Function;
+  onTap: Function;
 }
 
 const FoodCardInfo: React.FC<FoodCardInfoProps> = ({ item, onUpdateCart }) => {
@@ -32,9 +33,7 @@ const FoodCardInfo: React.FC<FoodCardInfoProps> = ({ item, onUpdateCart }) => {
           justifyContent: "space-around",
         }}
       >
-        <View
-          style={{ display: "flex", flex: 8, padding: 10, justifyContent: "center" }}
-        >
+        <View style={{ display: "flex", flex: 8, padding: 10, justifyContent: "center" }}>
           <Text style={{ fontSize: 20, fontWeight: "500" }}>{item.name}</Text>
           <Text style={{ fontSize: 16, color: "#616161" }}>{item.category}</Text>
           <Text style={{ fontSize: 14, color: "#616161" }}>{item.description}</Text>
@@ -48,9 +47,7 @@ const FoodCardInfo: React.FC<FoodCardInfoProps> = ({ item, onUpdateCart }) => {
             alignItems: "center",
           }}
         >
-          <Text style={{ fontSize: 18, fontWeight: "600", color: "#7C7C7C" }}>
-            ₹{item.price}
-          </Text>
+          <Text style={{ fontSize: 18, fontWeight: "600", color: "#7C7C7C" }}>VND{item.price}</Text>
           <ButtonAddRemove
             onAdd={() => {
               let unit = isNaN(item.unit) ? 0 : item.unit;

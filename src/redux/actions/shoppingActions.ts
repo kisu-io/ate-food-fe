@@ -2,7 +2,7 @@ import axios from "axios";
 import { Dispatch } from "react";
 import { BASE_URL } from "../../utils";
 import { LocationGeocodedAddress } from "expo-location";
-import { FoodAvailability, FoodModel } from "../models";
+import { FoodAvailability, FoodModel, OfferModel } from "../models";
 
 // availability actions
 export interface AvailabilityAction {
@@ -20,10 +20,16 @@ export interface ShoppingErrorAction {
   payload: any;
 }
 
+export interface OfferSearchAction {
+  readonly type: "ON_OFFER_SEARCH";
+  payload: [OfferModel];
+}
+
 export type ShoppingAction =
   | AvailabilityAction
   | ShoppingErrorAction
-  | FoodSearchAction;
+  | FoodSearchAction
+  | OfferSearchAction;
 
 // trigger actions from Components
 export const onAvailability = (postCode: string) => {
@@ -55,9 +61,7 @@ export const onAvailability = (postCode: string) => {
 export const onSearchFoods = (postCode: string) => {
   return async (dispatch: Dispatch<ShoppingAction>) => {
     try {
-      const response = await axios.get<[FoodModel]>(
-        `${BASE_URL}food/search/${postCode}`
-      );
+      const response = await axios.get<[FoodModel]>(`${BASE_URL}food/search/${postCode}`);
 
       if (!response) {
         dispatch({
@@ -68,6 +72,32 @@ export const onSearchFoods = (postCode: string) => {
         // save our location in local storage
         dispatch({
           type: "ON_FOODS_SEARCH",
+          payload: response.data,
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: "ON_SHOPPING_ERROR",
+        payload: error,
+      });
+    }
+  };
+};
+
+export const onGetOffers = (postCode: string) => {
+  return async (dispatch: Dispatch<ShoppingAction>) => {
+    try {
+      const response = await axios.get<[OfferModel]>(`${BASE_URL}food/offers/${postCode}`);
+
+      if (!response) {
+        dispatch({
+          type: "ON_SHOPPING_ERROR",
+          payload: "Offer Availability error",
+        });
+      } else {
+        // save our location in local storage
+        dispatch({
+          type: "ON_OFFER_SEARCH",
           payload: response.data,
         });
       }

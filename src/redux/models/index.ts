@@ -39,6 +39,7 @@ export interface FoodAvailability {
 export interface UserModel {
   firstName: string;
   lastName: string;
+  email: string;
   contactNumber: string;
   token: string;
   verified: boolean;
@@ -49,11 +50,48 @@ export interface UserState {
   location: LocationGeocodedAddress;
   error: string | undefined;
   Cart: [FoodModel];
-  //orders
+  orders: [OrderModel];
+  appliedOffer: OfferModel;
 }
 
 export interface ShoppingState {
   availability: FoodAvailability;
   availableFoods: [FoodModel];
-  //other models
+  offers: [OfferModel];
+}
+
+export interface CartModel {
+  _id: string;
+  food: FoodModel;
+  unit: number;
+}
+
+export interface OrderModel {
+  _id: string;
+  orderId: string;
+  items: [CartModel];
+  totalAmount: number;
+  orderDate: number;
+  paidThrough: string;
+  paymentResponse: string;
+  orderStatus: string;
+}
+
+export interface OfferModel {
+  _id: string;
+  offerType: string;
+  vendors: [any];
+  images: [string];
+  title: string;
+  description: string;
+  minValue: number;
+  offerAmount: number;
+  offerPercentage: number;
+  startValidity: Date;
+  endValidity: Date;
+  promoCode: string;
+  promoType: string;
+  bank: [any];
+  bin: [any];
+  pincode: string;
 }

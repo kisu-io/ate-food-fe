@@ -1,5 +1,5 @@
 import { UserAction } from "../actions";
-import { UserModel, UserState, FoodModel } from "../models";
+import { UserModel, UserState, FoodModel, OrderModel, OfferModel } from "../models";
 import { LocationGeocodedAddress } from "expo-location";
 
 const initialState: UserState = {
@@ -7,6 +7,8 @@ const initialState: UserState = {
   location: {} as LocationGeocodedAddress,
   error: undefined,
   Cart: {} as [FoodModel],
+  orders: {} as [OrderModel],
+  appliedOffer: {} as OfferModel,
 };
 
 const UserReducer = (state: UserState = initialState, action: UserAction) => {
@@ -24,9 +26,7 @@ const UserReducer = (state: UserState = initialState, action: UserAction) => {
         };
       }
 
-      const existingFoods = state.Cart.filter(
-        (item) => item._id == action.payload._id
-      );
+      const existingFoods = state.Cart.filter((item) => item._id == action.payload._id);
 
       //Check for Existing Product to update unit
       if (existingFoods.length > 0) {
@@ -49,8 +49,46 @@ const UserReducer = (state: UserState = initialState, action: UserAction) => {
         };
       }
     case "ON_USER_LOGIN":
-      console.log("User Token" + action.payload);
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case "ON_USER_LOGOUT":
+      return {
+        ...state,
+        user: {} as UserModel,
+      };
+    case "ON_CREATE_ORDER":
+      if (!Array.isArray(state.orders)) {
+        return {
+          ...state,
+          Cart: [],
+          orders: [action.payload],
+        };
+      } else {
+        return {
+          ...state,
+          Cart: [],
+          orders: [...state.orders, action.payload],
+        };
+      }
+    case "ON_VIEW_ORDER":
+    case "ON_CANCEL_ORDER":
+      return {
+        ...state,
+        orders: action.payload,
+      };
 
+    case "ON_ADD_OFFER":
+      return {
+        ...state,
+        appliedOffer: action.payload,
+      };
+    case "ON_REMOVE_OFFER":
+      return {
+        ...state,
+        appliedOffer: {},
+      };
     default:
       return state;
   }
